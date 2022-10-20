@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from 'react-router-dom';
 import MovieDetails from "../components/movieDetails/";
 import PageTemplate from "../components/templateMoviePage";
-import useMovie from "../hooks/useMovie";
+import useMovie from "../Hooks/useMovie";
 
 const MoviePage = (props) => {
   const { id } = useParams();
