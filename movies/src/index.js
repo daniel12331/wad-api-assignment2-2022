@@ -10,12 +10,14 @@ import SiteHeader from './components/siteHeader'
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { createRoot } from "react-dom/client";
+import MoviesContextProvider from "./contexts/moviesContext";
 
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
           <BrowserRouter>
       <SiteHeader />
+      <MoviesContextProvider>
       <Routes>
         <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
         <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
@@ -24,7 +26,9 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={ <Navigate to="/" /> } />
       </Routes>
+      </MoviesContextProvider>
     </BrowserRouter>
+    <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };
