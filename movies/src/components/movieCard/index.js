@@ -7,9 +7,9 @@ import CardHeader from "@mui/material/CardHeader";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
-import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid";
 import img from '../../images/film-poster-placeholder.png'
 import { Link } from "react-router-dom";
@@ -45,6 +45,11 @@ export default function MovieCard({ movie, action }) {
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={
+          movie.playlist ? (
+            <Avatar sx={{ backgroundColor: 'red' }}>
+              <PlaylistAddIcon />
+            </Avatar>
+          ) :
           movie.favorite ? (
             <Avatar sx={{ backgroundColor: 'red' }}>
               <FavoriteIcon />
