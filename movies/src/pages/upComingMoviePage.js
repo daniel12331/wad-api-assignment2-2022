@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PageTemplate from '../components/templateMovieListPage'
 import { getUpComignMovies } from "../api/tmdb-api";
 import { useQuery } from 'react-query';
@@ -20,8 +20,10 @@ const UpComingMoviePage = (props) => {
   const movies = data.results;
 
   // Redundant, but necessary to avoid app crashing.
-  const favorites = movies.filter(m => m.favorite)
-  localStorage.setItem('favorites', JSON.stringify(favorites))
+  const playlists = movies.filter(m => m.playlist)
+  localStorage.setItem('playlists', JSON.stringify(playlists))
+  const addToPlaylist = (movieId) => true
+  console.log(playlists)
 
   return (
     <PageTemplate

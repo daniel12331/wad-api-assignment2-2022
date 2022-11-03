@@ -5,7 +5,18 @@ export const MoviesContext = React.createContext(null);
 const MoviesContextProvider = (props) => {
   const [favorites, setFavorites] = useState( [] )
   const [myReviews, setMyReviews] = useState( {} ) 
+  const [playlists, setPlaylist] = useState([])
 
+  const addToPlaylist = (movie) => {
+    let newPlaylist = [];
+    if(!playlists.includes(movie.id)){
+      newPlaylist = [...playlists, movie.id];
+    }
+    else{
+      newPlaylist = [...playlists];
+    }
+    setPlaylist(newPlaylist)
+  }
 
   const addToFavorites = (movie) => {
     let newFavorites = [];
@@ -36,7 +47,9 @@ const MoviesContextProvider = (props) => {
         favorites,
         addToFavorites,
         removeFromFavorites,
-        addReview
+        addReview,
+        playlists,
+        addToPlaylist
       }}
     >
       {props.children}
