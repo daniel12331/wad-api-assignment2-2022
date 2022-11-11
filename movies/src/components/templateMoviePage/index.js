@@ -7,11 +7,16 @@ import { getMovieImages } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from '../spinner'
 
-const TemplateMoviePage = ({ movie, children }) => {
-  const { data , error, isLoading, isError } = useQuery(
+const TemplateMoviePage = ({ movie, children, actor }) => {
+
+  if(movie > 1){
+    const { data , error, isLoading, isError } = useQuery(
     ["images", { id: movie.id }],
     getMovieImages
-  );
+    );
+  }
+  
+
 
   if (isLoading) {
     return <Spinner />;
@@ -24,8 +29,9 @@ const TemplateMoviePage = ({ movie, children }) => {
 
   return (
     <>
+    {movie ? (
+      <>
       <MovieHeader movie={movie} />
-
       <Grid container spacing={5} sx={{ padding: "15px" }}>
         <Grid item xs={3}>
           <div sx={{
@@ -51,6 +57,27 @@ const TemplateMoviePage = ({ movie, children }) => {
           {children}
         </Grid>
       </Grid>
+      </>
+      ) : (
+        <>
+      <MovieHeader movie={movie} />
+      <Grid container spacing={5} sx={{ padding: "15px" }}>
+      <Grid item xs={3}>
+          <div sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-around",
+          }}>
+          
+          </div>
+        </Grid>
+  
+        <Grid item xs={9}>
+          {children}
+        </Grid>
+      </Grid>
+    </>
+      )}
     </>
   );
 };
