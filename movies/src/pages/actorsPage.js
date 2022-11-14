@@ -9,7 +9,7 @@ import { Pagination } from "@mui/material";
 const ActorsPage = (props) => {
 
   const [currentPage, setCurrentPage] = useState();
-  const {  data, error, isLoading, isError }  = useQuery(['actors', currentPage], ()=> getActors(currentPage))
+  const { data, error, isLoading, isError }  = useQuery(['actors', currentPage], ()=> getActors(currentPage))
 
   if (isLoading) {
     return <Spinner />

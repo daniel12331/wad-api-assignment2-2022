@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavourites'
 import { Pagination } from "@mui/material";
+
 const HomePage = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const {  data, error, isLoading, isError }  = useQuery(['discover', currentPage], ()=> getMovies(currentPage))
