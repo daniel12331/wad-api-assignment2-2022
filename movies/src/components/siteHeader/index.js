@@ -28,7 +28,7 @@ const SiteHeader = ({ history }) => {
     { label: "Favorites", path: "/movies/favorites" },
     { label: "Upcoming", path: "/movies/upcomingmovies" },
     { label: "Actors", path: "/movies/actors" },
-    { label: "TVShows", path: "/movies/actors" },
+    { label: "TVShows", path: "/movies/tvshows" },
 
   ];
 

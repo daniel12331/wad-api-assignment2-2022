@@ -29,7 +29,7 @@ const MovieList = ( {actors, movies, action, title, credits}) => {
   ));
  
   
-    return title === 'Discover Movies' || title === 'Upcoming Movies'? movieCards: title === 'Credits'? actoreCredits: actorCards
+    return title === 'Discover Movies' || title === 'Upcoming Movies' || title === 'Popular TV Shows'? movieCards: title === 'Credits'? actoreCredits: actorCards
 
 
  

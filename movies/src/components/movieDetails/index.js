@@ -103,13 +103,20 @@ const MovieDetails = ({ movie, actor}) => {
                 {actor.biography}
               </Typography>
         
-                {(actor.deathday === null) ? (
-                <Typography variant="h6" component="p">
-                   {actor.deathday }
-                  </Typography>)
-                    : ( '')
+                {(actor.deathday === null) ? 
+                    console.log('not dead')
+                    : (
+                      <Paper component="ul" sx={{...root}} >
+                      <li>
+                        <Chip label="Death Day" sx={{...chip}} color="primary" />
+                      </li>
+                        <li>
+                          <Chip label={actor.deathday} sx={{...chip}} />
+                        </li>
+                    </Paper>
+                    ) 
                 }
-        
+
         <Paper component="ul" sx={{...root}} >
         <li>
           <Chip label="Birth Place" sx={{...chip}} color="primary" />

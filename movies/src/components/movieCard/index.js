@@ -41,6 +41,7 @@ export default function MovieCard({ movie, action }) {
     addToFavorites(movie);
   };
 
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
@@ -58,10 +59,10 @@ export default function MovieCard({ movie, action }) {
         }
         title={
           <Typography variant="h5" component="p">
-            {movie.title}{" "}
+            {movie.title }{movie.name}
           </Typography>
         }
-      />
+        />
       <CardMedia
         sx={{ height: 500 }}
         image={
@@ -88,11 +89,20 @@ export default function MovieCard({ movie, action }) {
       </CardContent>
       <CardActions disableSpacing>
       {action(movie)}
-        <Link to={`/movies/${movie.id}`}>
-          <Button variant="outlined" size="medium" color="primary">
-            More Info ...
-          </Button>
-        </Link>
+        {movie.title ? (
+            <Link to={`/movies/${movie.id}`}>
+            <Button variant="outlined" size="medium" color="primary">
+              More Info ...
+            </Button>
+          </Link>
+          ) :
+          movie.name ? (
+            <Link to={`/tvshows/${movie.id}`}>
+            <Button variant="outlined" size="medium" color="primary">
+              More Info ...
+            </Button>
+          </Link>
+          ) : null}
       </CardActions>
     </Card>
   );

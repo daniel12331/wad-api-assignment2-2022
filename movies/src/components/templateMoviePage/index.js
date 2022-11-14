@@ -7,7 +7,7 @@ import { getMovieImages } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from '../spinner'
 
-const TemplateMoviePage = ({ movie, children, actor }) => {
+const TemplateMoviePage = ({ movie, children, actor, tvshow }) => {
 
   const checkMovieData = movie?.id
     const { data: imagesData , error, isLoading, isError } = useQuery(
@@ -23,7 +23,8 @@ const TemplateMoviePage = ({ movie, children, actor }) => {
   if (isError) {
     return <h1>{error.message}</h1>;
   }
-  const images = imagesData?.posters 
+  const images = imagesData?.posters
+  const tvimage = tvshow
 
   return (
     
@@ -57,7 +58,7 @@ const TemplateMoviePage = ({ movie, children, actor }) => {
         </Grid>
       </Grid>
       </>
-      ) : (
+      ) : (actor?.id > 1) ? (
         <>
         <MovieHeader actor={actor} />
       <Grid container spacing={5} sx={{ padding: "15px" }}>
@@ -84,7 +85,38 @@ const TemplateMoviePage = ({ movie, children, actor }) => {
         </Grid>        
       </Grid>
     </>
-      )}
+      ) : (
+        <>
+        <Grid container spacing={5} sx={{ padding: "15px" }}>
+          <Grid item xs={3}>
+            <div sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-around",
+            }}>
+              <ImageList 
+                  cols={1}>
+                  
+                      <ImageListItem key={tvimage.poster_path} cols={1}>
+                      <img
+                          src={`https://image.tmdb.org/t/p/w500/${tvimage.poster_path}`}
+                          alt={tvimage.poster_path}
+                      />
+                      </ImageListItem>
+                  
+              </ImageList>
+            </div>
+          </Grid>
+  
+          <Grid item xs={9}>
+            {children}
+          </Grid>
+        </Grid>
+        </>
+      )
+    
+    
+    }
     </>
 
   

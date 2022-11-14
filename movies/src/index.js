@@ -12,6 +12,8 @@ import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage';
 import ActorsPage from "./pages/actorsPage";
 import ActorsDetailPage from "./pages/actorsDetailPage"
+import TvShowsPage from "./pages/tvShowPage"
+import TvShowDetailPage from './pages/tvShowDetailPage'
 
 import React from "react";
 
@@ -29,8 +31,10 @@ const App = () => {
         <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
         <Route path="/movies/upcomingmovies" element={<UpComingMoviePage />} />
         <Route path="/movies/actors" element={<ActorsPage />} />
+        <Route path="/movies/tvshows" element={<TvShowsPage />} />
         <Route path="/movies/:id" element={<MoviePage />} />
         <Route path="/actors/:id" element={<ActorsDetailPage />} />
+        <Route path="/tvshows/:id" element={<TvShowDetailPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={ <Navigate to="/" /> } />
       </Routes>

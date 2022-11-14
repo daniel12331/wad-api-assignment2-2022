@@ -19,7 +19,7 @@ const ActorsPage = (props) => {
     return <h1>{error.message}</h1>
   }  
   const actors = data.results;
-  const totalResults = data.total_results
+  const totalResults = data.total_pages
 
   const handleChangePage = (event, newPage) => {
     setCurrentPage(newPage);
@@ -30,8 +30,6 @@ const ActorsPage = (props) => {
     <PageTemplate
       title="Most Popular Actors"
       actors={actors}
-      action={(movie) => {
-      }}
     />
 
   <Pagination

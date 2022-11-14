@@ -19,7 +19,7 @@ export default function ActorCreditsCard ({ movie }) {
       <CardHeader
         title={
           <Typography variant="h5" component="p">
-            {movie.title}{" "}
+            {movie.title}{movie.name}
           </Typography>
         }
       />
