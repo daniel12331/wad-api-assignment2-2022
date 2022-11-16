@@ -33,6 +33,7 @@ const SiteHeader = ({ history }) => {
     { label: "Actors", path: "/movies/actors" },
     { label: "TVShows", path: "/movies/tvshows" },
     { label: "Logout", path: "logout"},
+    { label: "Search", path:"/searchpage"}
 
 
   ];

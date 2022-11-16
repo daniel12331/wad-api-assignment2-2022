@@ -17,6 +17,7 @@ import TvShowDetailPage from './pages/tvShowDetailPage'
 import LoginPage from "./pages/loginPage";
 import React,{useState} from "react";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import SearchPage from "./pages/searchPage";
 
 
 function PrivateOutlet() {
@@ -51,12 +52,14 @@ const App = () => {
         <Route path="/actors/:id" element={<ActorsDetailPage />} />
         <Route path="/tvshows/:id" element={<TvShowDetailPage />} />
 
+
         <Route path="" element={<HomePage/>}/>
 
 
         </Route>
         <Route path="/landing" element={<LoginPage funcNav={setShowNav}/>}  />
         <Route path="*" element={ <Navigate to="/" /> } />
+        <Route path="/searchpage" element={<SearchPage />} />
       </Routes>
       </MoviesContextProvider>
       </AuthProvider>
