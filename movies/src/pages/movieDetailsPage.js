@@ -21,17 +21,20 @@ const MoviePage = (props) => {
     return <h1>{error.message}</h1>;
   }
   return (
+    
     <>
       {movie ? (
         <>
           <PageTemplate movie={movie}>
             <MovieDetails movie={movie} />
+          
           </PageTemplate>
         </>
       ) : (
         <p>Waiting for movie details</p>
       )}
     </>
+    
   );
 };
 

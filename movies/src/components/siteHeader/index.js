@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { useAuth } from "../../contexts/AuthContext";
+
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
@@ -22,30 +24,43 @@ const SiteHeader = ({ history }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const navigate = useNavigate();
+  const {currentUser, logout} = useAuth()
 
   const menuOptions = [
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/movies/favorites" },
     { label: "Upcoming", path: "/movies/upcomingmovies" },
     { label: "Actors", path: "/movies/actors" },
-    { label: "TVShows", path: "/movies/actors" },
+    { label: "TVShows", path: "/movies/tvshows" },
+    { label: "Logout", path: "logout"},
+
 
   ];
 
   const handleMenuSelect = (pageURL) => {
-    navigate(pageURL, { replace: true });
+    if(pageURL === 'logout'){
+      logout()
+      console.log('logout success')
+      navigate('/landing', { replace: true });
+    }else{
+      navigate(pageURL, { replace: true });
+    }
+    
+
   };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  
+  
 
   return (
     <>
       <AppBar position="fixed" color="secondary">
         <Toolbar>
           <Typography variant="h4" sx={{ flexGrow: 1 }}>
-            TMDB Client
+            TMDB Client - {currentUser?.email}
           </Typography>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             All you ever wanted to know about Movies!

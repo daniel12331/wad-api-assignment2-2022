@@ -11,6 +11,7 @@ import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews"
 
 
+
 const root = {
     display: "flex",
     justifyContent: "center",
@@ -21,10 +22,12 @@ const root = {
 };
 const chip = { margin: 0.5 };
 
-const MovieDetails = ({ movie }) => {  // Don't miss this!
-  const [drawerOpen, setDrawerOpen] = useState(false);
+const MovieDetails = ({ movie, actor}) => {  
 
+  const [drawerOpen, setDrawerOpen] = useState(false);
   return (
+    //Movie Details
+    (movie?.id > 1) ? (
     <>
       <Typography variant="h5" component="h3">
         Overview
@@ -41,7 +44,7 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         <li>
           <Chip label="Genres" sx={{...chip}} color="primary" />
         </li>
-        {movie.genres.map((g) => (
+        {movie?.genres?.map((g) => (
           <li key={g.name}>
             <Chip label={g.name} sx={{...chip}} />
           </li>
@@ -51,13 +54,13 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
         <Chip
           icon={<MonetizationIcon />}
-          label={`${movie.revenue.toLocaleString()}`}
+          label={`${movie.revenue?.toLocaleString()}`}
         />
         <Chip
           icon={<StarRate />}
-          label={`${movie.vote_average} (${movie.vote_count}`}
+          label={`${movie?.vote_average} (${movie?.vote_count}`}
         />
-        <Chip label={`Released: ${movie.release_date}`} />
+        <Chip label={`Released: ${movie?.release_date}`} />
       </Paper>
 
       <Paper component="ul" sx={{...root}}
@@ -65,7 +68,7 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         <li>
           <Chip label="Production Countries" sx={{...chip}} color="primary" />
         </li>
-        {movie.production_countries.map((s) => (
+        {movie.production_countries?.map((s) => (
           <li key={s.name}>
             <Chip label={s.name} sx={{...chip}} />
           </li>
@@ -88,6 +91,59 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         <MovieReviews movie={movie} />
       </Drawer>
       </>
+
+      ) : (
+        //Actor Details
+
+        <>
+        <Typography variant="h5" component="h3" >
+                Biography
+              </Typography>
+              <Typography variant="h6" component="p">
+                {actor.biography}
+              </Typography>
+        
+                {(actor.deathday === null) ? 
+                    console.log('not dead')
+                    : (
+                      <Paper component="ul" sx={{...root}} >
+                      <li>
+                        <Chip label="Death Day" sx={{...chip}} color="primary" />
+                      </li>
+                        <li>
+                          <Chip label={actor.deathday} sx={{...chip}} />
+                        </li>
+                    </Paper>
+                    ) 
+                }
+
+        <Paper component="ul" sx={{...root}} >
+        <li>
+          <Chip label="Birth Place" sx={{...chip}} color="primary" />
+        </li>
+          <li>
+            <Chip label={actor.place_of_birth} sx={{...chip}} />
+          </li>
+      </Paper>
+      <Paper component="ul" sx={{...root}} >
+        <li>
+          <Chip label="Birthday" sx={{...chip}} color="primary" />
+        </li>
+          <li>
+            <Chip label={actor.birthday} sx={{...chip}} />
+          </li>
+      </Paper>
+      <Paper component="ul" sx={{...root}} >
+        <li>
+          <Chip label="Popularity" sx={{...chip}} color="primary" />
+        </li>
+          <li>
+            <Chip label={actor.popularity} sx={{...chip}} />
+          </li>
+      </Paper>
+              </>
+      )
+      
   );
 };
 export default MovieDetails ;
