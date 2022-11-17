@@ -31,7 +31,7 @@ npm install
 ```
 via terminal, then create a .env in the movies folder and then add and replace the following with your API key
 ```
-REACT_APP_TMDB_KEY=5dfcbe6bc75e240b37587a22bcc4254b
+REACT_APP_TMDB_KEY=<<Api key>>
 FAST_REFRESH=false
 ```
 
