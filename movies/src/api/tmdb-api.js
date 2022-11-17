@@ -1,6 +1,6 @@
-export const getMovies = (pageNumber) => {
+export const getMovies = (pageNumber, genreforURL) => {
   return fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${pageNumber}`
+    `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${pageNumber}&with_genres=${genreforURL}`
   ).then((response) => {
     if (!response.ok) {
       throw new Error(response.json().message);
@@ -42,9 +42,9 @@ export const getUpComignMovies = () => {
       throw error
    });
   };
-  export const getGenres = async () => {
+  export const getGenres = async (type) => {
     return fetch(
-      "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
+     `https://api.themoviedb.org/3/genre/${type}/list?api_key=` +
         process.env.REACT_APP_TMDB_KEY +
         "&language=en-US"
     ).then( (response) => {
@@ -130,9 +130,9 @@ export const getUpComignMovies = () => {
    });
   };
 
-  export const getTVShows = (pageNumber) => {
+  export const getTVShows = (pageNumber, genreforURL) => {
     return fetch(
-      `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=${pageNumber}`
+      `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=${pageNumber}&with_genres=${genreforURL}`
     ).then((response) => {
       if (!response.ok) {
         throw new Error(response.json().message);
@@ -175,4 +175,18 @@ export const getUpComignMovies = () => {
     .catch((error) => {
       throw error
    });
+  };
+
+  export const getSearch = (searchText, page, type) => {
+    return fetch(
+      `https://api.themoviedb.org/3/search/${type === 1? "tv":type=== 2 ? "person" : "movie"}?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&query=${searchText}&page=${page}&include_adult=false`
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.json().message);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+       throw error
+    });
   };

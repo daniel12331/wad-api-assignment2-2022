@@ -51,15 +51,13 @@ const App = () => {
         <Route path="/movies/:id" element={<MoviePage />} />
         <Route path="/actors/:id" element={<ActorsDetailPage />} />
         <Route path="/tvshows/:id" element={<TvShowDetailPage />} />
-
-
+        <Route path="/searchpage" element={<SearchPage />} />
         <Route path="" element={<HomePage/>}/>
 
 
         </Route>
         <Route path="/landing" element={<LoginPage funcNav={setShowNav}/>}  />
         <Route path="*" element={ <Navigate to="/" /> } />
-        <Route path="/searchpage" element={<SearchPage />} />
       </Routes>
       </MoviesContextProvider>
       </AuthProvider>

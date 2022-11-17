@@ -4,7 +4,7 @@ import MovieCard from "../movieCard";
 import Grid from "@mui/material/Grid";
 import ActorCreditsCard from "../actorCreditsCard";
 
-const MovieList = ( {actors, movies, action, title, credits}) => {
+const MovieList = ( {actors, movies, action, title, credits, type}) => {
 
 
 
@@ -29,7 +29,7 @@ const MovieList = ( {actors, movies, action, title, credits}) => {
   ));
  
   
-    return title === 'Discover Movies' || title === 'Upcoming Movies' || title === 'Popular TV Shows'? movieCards: title === 'Credits'? actoreCredits: actorCards
+    return type === 1 || type === 0 || title === 'Discover Movies' || title === 'Upcoming Movies' || title === 'Popular TV Shows'? movieCards: title === 'Credits' ? actoreCredits: title === "Most Popular Actors" || type === 2? actorCards : ''
 
 
  

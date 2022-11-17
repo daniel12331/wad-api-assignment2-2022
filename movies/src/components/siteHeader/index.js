@@ -27,13 +27,13 @@ const SiteHeader = ({ history }) => {
   const {currentUser, logout} = useAuth()
 
   const menuOptions = [
+    { label: "Search", path:"/searchpage"},
     { label: "Home", path: "/" },
-    { label: "Favorites", path: "/movies/favorites" },
     { label: "Upcoming", path: "/movies/upcomingmovies" },
-    { label: "Actors", path: "/movies/actors" },
     { label: "TVShows", path: "/movies/tvshows" },
-    { label: "Logout", path: "logout"},
-    { label: "Search", path:"/searchpage"}
+    { label: "Actors", path: "/movies/actors" },
+    { label: "Favorites", path: "/movies/favorites" },
+    { label: "Logout", path: "logout"}
 
 
   ];

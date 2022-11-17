@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 
 
 
-function MovieListPageTemplate({ movies, title, action, actors }) {
+function MovieListPageTemplate({ movies, title, action, actors, type}) {
 
   const displayedPopularActors = actors
 
@@ -19,7 +19,7 @@ function MovieListPageTemplate({ movies, title, action, actors }) {
       </Grid>
       <Grid item container spacing={5}>
         
-        <MovieList title={title} action={action} movies={movies} actors={displayedPopularActors}></MovieList>
+        <MovieList title={title} action={action} movies={movies} actors={displayedPopularActors} type={type}></MovieList>
       </Grid>
     </Grid>
   
