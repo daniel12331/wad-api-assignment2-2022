@@ -1,51 +1,52 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import React, { useContext, useState, useEffect} from "react";
-import {auth} from '../config/fire'
+import React, { useState, createContext } from "react";
+import { login, signup } from "../api/movie-api";
 
-const AuthContext = React.createContext()
+export const AuthContext = createContext(null);
 
-export function useAuth(){
-    return useContext(AuthContext)
-}
+const AuthContextProvider = (props) => {
+  const existingToken = localStorage.getItem("token");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authToken, setAuthToken] = useState(existingToken);
+  const [userName, setUserName] = useState("");
 
-export function AuthProvider ({children}) {
+  //Function to put JWT token in local storage.
+  const setToken = (data) => {
+    localStorage.setItem("token", data);
+    setAuthToken(data);
+  }
 
-    const[currentUser, setCurrentUser] = useState()
-    const[loading, setLoading] = useState(true)
-
-    function register(email, password){
-       return createUserWithEmailAndPassword(auth, email, password)
+  const authenticate = async (username, password) => {
+    const result = await login(username, password);
+    if (result.token) {
+      setToken(result.token)
+      setIsAuthenticated(true);
+      setUserName(username);
     }
+  };
 
-    function login(email, password){
-        return signInWithEmailAndPassword(auth, email, password)
-     }
+  const register = async (username, password) => {
+    const result = await signup(username, password);
+    console.log(result.code);
+    return (result.code == 201) ? true : false;
+  };
 
-    function logout(){
-        return signOut(auth)
-    }
+  const signout = () => {
+    setTimeout(() => setIsAuthenticated(false), 100);
+  }
 
-    useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, user =>{
-        setCurrentUser(user)
-        setLoading(false)
-    })
-    return unsubscribe
-}, [])
-
-    const value = {
-        currentUser,
+  return (
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        authenticate,
         register,
-        login,
-        logout
-    }
-
-    return(
-        <AuthContext.Provider value={value}>
-           {!loading && children}
-        </AuthContext.Provider>
-
-    )
- 
+        signout,
+        userName
+      }}
+    >
+      {props.children}
+    </AuthContext.Provider>
+  );
 };
 
+export default AuthContextProvider;

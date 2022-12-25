@@ -1,168 +1,43 @@
-import React , {useState} from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from "@mui/material/Typography";
-import { Container } from "@mui/material";
-import { useAuth } from "../contexts/AuthContext";
-import toaster from 'toastify-react';
-import { toast } from "react-toastify";
-import { useNavigate} from 'react-router-dom';
+import React, { useContext, useState } from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { AuthContext } from '../contexts/AuthContext';
+import { Link } from "react-router-dom";
 
-const LoginPage = (props) => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [cpassword, setcPassword] = useState('')
+const LoginPage = props => {
+  const context = useContext(AuthContext);
 
-  const { register, login} = useAuth()
-  const nav = useNavigate()
-   props.funcNav(false);
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
 
-  
+  const login = () => {
+    context.authenticate(userName, password);
+  };
 
-  async function handleRegister(e) {
-    e.preventDefault()
+  let location = useLocation();
 
-    if (password !== cpassword){
-      toaster.error('Password do not match!')
-      console.log(`passwords dont match ${password}`)
-    }
-      else {
-    try{
-   await register(email,password)
-   props.funcNav(true);
-   nav("/")
-    }
-    catch {
-      toast.error('Failed to create an account')
-      console.log('failed to create an account login')
+  // Set 'from' to path where browser is redirected after a successful login - either / or the protected path user requested
+  const { from } = location.state ? { from: location.state.from.pathname } : { from: "/" };
 
-    }
+  if (context.isAuthenticated === true) {
+    return <Navigate to={from} />;
   }
-  }
-  async function handleLogin(e) {
-    e.preventDefault()
 
-    try{
-   await login(email,password)
-   props.funcNav(true);
-   nav("/")
-    }
-    catch {
-      toast.error('Failed to sign in')
-      console.log('failed to create an account login')
-
-    }
-  
-  }
-  
-const intialState = {
-  isMember: true,
-}
-    const [values, setValues] = useState(intialState)
-
-    const toggleMember = () => {
-      setValues({...values, isMember: !values.isMember});
-      console.log(values.isMember )
-  }
-    
   return (
-    <Container component="main" maxWidth="xs">
-    <Box
-      sx={{
-        marginTop: 8,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
-      <Avatar sx={{ m: 1, bgcolor: 'primary' }}>
-        <LockOutlinedIcon />
-      </Avatar>
-      <Typography component="h1" variant="h5">
-      {values.isMember?'Sign In':'Register'}
-      </Typography>
-      <Box component="form" noValidate sx={{ mt: 1 }} >
-      {!values.isMember &&(
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="name"
-          label="Full Name"
-          name="name"
-          autoComplete="name"
-          autoFocus
-          onChange={(e) => setName(e.target.value)}
-        />)} 
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          autoComplete="email"
-          autoFocus
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="Password"
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-              {!values.isMember &&(
-
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          name="confirm passsword"
-          label="Confirm passsword"
-          type="password"
-          id="confirm passsword"
-          autoComplete="current-password"
-          onChange={(e) => setcPassword(e.target.value)}
-        />)} 
-           {values.isMember?
-           <Button
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-          onClick={handleLogin}
-        >Sign In
-        </Button>
-        :
-        <Button
-          type='submit'
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-          onClick={handleRegister}
-        >Register
-        </Button>}
-        
-        <Grid container>
-          <Grid item>
-            <Link variant="body2" onClick={toggleMember}>
-            {values.isMember?'Not a member yet?':'Already a member?'}
-            </Link>
-          </Grid>
-        </Grid>
-      </Box>
-    </Box>
-  </Container>
-    );
+    <>
+      <h2>Login page</h2>
+      <p>You must log in to view the protected pages </p>
+      <input id="username" placeholder="user name" onChange={e => {
+        setUserName(e.target.value);
+      }}></input><br />
+      <input id="password" type="password" placeholder="password" onChange={e => {
+        setPassword(e.target.value);
+      }}></input><br />
+      {/* Login web form  */}
+      <button onClick={login}>Log in</button>
+      <p>Not Registered?
+      <Link to="/signup">Sign Up!</Link></p>
+    </>
+  );
 };
+
 export default LoginPage;

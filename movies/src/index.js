@@ -15,14 +15,15 @@ import ActorsDetailPage from "./pages/actorsDetailPage"
 import TvShowsPage from "./pages/tvShowPage"
 import TvShowDetailPage from './pages/tvShowDetailPage'
 import LoginPage from "./pages/loginPage";
-import React,{useState} from "react";
-import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import React,{useState, useContext} from "react";
+import { AuthContext } from "./contexts/AuthContext";
+import  AuthContextProvider  from "./contexts/AuthContext";
 import SearchPage from "./pages/searchPage";
 
 
 function PrivateOutlet() {
-  const {currentUser} = useAuth()
-  return currentUser ? <Outlet /> : <Navigate to="/landing" />;
+  const context = useContext(AuthContext);
+  return context.isAuthenticated === true ? <Outlet /> : <Navigate to="/landing" />;
 }
 
 
@@ -35,7 +36,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
           <BrowserRouter>
-          <AuthProvider>
+          <AuthContextProvider>
           {   showNav &&
             <SiteHeader />} 
       <MoviesContextProvider>
@@ -60,7 +61,7 @@ const App = () => {
         <Route path="*" element={ <Navigate to="/" /> } />
       </Routes>
       </MoviesContextProvider>
-      </AuthProvider>
+      </AuthContextProvider>
     </BrowserRouter>
     <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

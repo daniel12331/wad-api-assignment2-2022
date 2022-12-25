@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useAuth } from "../../contexts/AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
@@ -24,7 +24,7 @@ const SiteHeader = ({ history }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const navigate = useNavigate();
-  const {currentUser, logout} = useAuth()
+  const context = useContext(AuthContext);
 
   const menuOptions = [
     { label: "Search", path:"/searchpage"},
@@ -40,7 +40,7 @@ const SiteHeader = ({ history }) => {
 
   const handleMenuSelect = (pageURL) => {
     if(pageURL === 'logout'){
-      logout()
+      context.signout()
       console.log('logout success')
       navigate('/landing', { replace: true });
     }else{
@@ -61,7 +61,7 @@ const SiteHeader = ({ history }) => {
       <AppBar position="fixed" color="secondary">
         <Toolbar>
           <Typography variant="h4" sx={{ flexGrow: 1 }}>
-            TMDB Client - {currentUser?.email}
+            TMDB Client - {context.userName}
           </Typography>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             All you ever wanted to know about Movies!
