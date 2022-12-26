@@ -1,3 +1,5 @@
+
+/*
 export const getMovies = (pageNumber, genreforURL) => {
   return fetch(
     `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=${pageNumber}&with_genres=${genreforURL}`
@@ -190,3 +192,4 @@ export const getUpComignMovies = () => {
        throw error
     });
   };
+  */

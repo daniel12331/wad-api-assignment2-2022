@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import { getMovies } from "../api/tmdb-api";
+import { getDiscoverMovies } from "../api/movie-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
@@ -8,6 +8,7 @@ import { Pagination } from "@mui/material";
 import Genres from "../components/genre";
 
 const HomePage = (props) => {
+  
   const [currentPage, setCurrentPage] = useState(1);
 
   const [genres, setGenres] = useState([]);
@@ -19,12 +20,12 @@ const HomePage = (props) => {
     const GenreIds = selectedGenres?.map((g) => g.id);
     return GenreIds.reduce((acc, curr) => acc + "," + curr);
   };
-
+ 
   const genreforURL = useGenre(selectedGenres);
 
 
   const {  data, error, isLoading, isError, refetch } 
-   = useQuery(['discover', currentPage, genreforURL], ()=> getMovies(currentPage, genreforURL))
+   = useQuery(['discover'], ()=> getDiscoverMovies())
 
   
 

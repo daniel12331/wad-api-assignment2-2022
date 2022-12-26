@@ -19,7 +19,7 @@ import React,{useState, useContext} from "react";
 import { AuthContext } from "./contexts/AuthContext";
 import  AuthContextProvider  from "./contexts/AuthContext";
 import SearchPage from "./pages/searchPage";
-
+import SignUpPage from "./pages/signupPage";
 
 function PrivateOutlet() {
   const context = useContext(AuthContext);
@@ -57,7 +57,8 @@ const App = () => {
 
 
         </Route>
-        <Route path="/landing" element={<LoginPage funcNav={setShowNav}/>}  />
+        <Route path="/landing" element={<LoginPage />}  />
+        <Route path="/signup" element={<SignUpPage />}  />
         <Route path="*" element={ <Navigate to="/" /> } />
       </Routes>
       </MoviesContextProvider>

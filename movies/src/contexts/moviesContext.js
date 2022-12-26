@@ -1,55 +1,33 @@
-import React, { useState } from "react";
+import React, { createContext, useEffect, useReducer, useContext } from "react";
+import { getDiscoverMovies } from "../api/movie-api";
+import { AuthContext } from '../contexts/AuthContext';
 
-export const MoviesContext = React.createContext(null);
+export const MoviesContext = createContext(null);
 
-const MoviesContextProvider = (props) => {
-  const [favorites, setFavorites] = useState( [] )
-  const [myReviews, setMyReviews] = useState( {} ) 
-  const [playlists, setPlaylist] = useState([])
-
-  const addToPlaylist = (movie) => {
-    let newPlaylist = [];
-    if(!playlists.includes(movie.id)){
-      newPlaylist = [...playlists, movie.id];
-    }
-    else{
-      newPlaylist = [...playlists];
-    }
-    setPlaylist(newPlaylist)
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "load":
+      return { movies: action.payload.result };
+    default:
+      return state;
   }
+};
 
-  const addToFavorites = (movie) => {
-    let newFavorites = [];
-    if (!favorites.includes(movie.id)){
-      newFavorites = [...favorites, movie.id];
-    }
-    else{
-      newFavorites = [...favorites];
-    }
-    setFavorites(newFavorites)
-  };
+const MoviesContextProvider = props => {
+  const context = useContext(AuthContext);
 
-  const addReview = (movie, review) => {
-    setMyReviews( {...myReviews, [movie.id]: review } )
-  };
-  
+  const [state, dispatch] = useReducer(reducer, { movies: []});
 
-  // We will use this function in a later section
-  const removeFromFavorites = (movie) => {
-    setFavorites( favorites.filter(
-      (mId) => mId !== movie.id
-    ) )
-  };
+  useEffect(() => {
+    getDiscoverMovies().then(result => {
+      dispatch({ type: "load", payload: {result}});
+    });
+  },[context.isAuthenticated]);
 
   return (
     <MoviesContext.Provider
       value={{
-        favorites,
-        addToFavorites,
-        removeFromFavorites,
-        addReview,
-        playlists,
-        addToPlaylist
+        movies: state.movies
       }}
     >
       {props.children}
@@ -57,4 +35,4 @@ const MoviesContextProvider = (props) => {
   );
 };
 
-export default MoviesContextProvider;
+export default MoviesContextProvider

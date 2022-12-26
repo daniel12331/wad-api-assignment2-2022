@@ -3,7 +3,7 @@ import { movies, movieReviews, movieDetails } from './moviesData';
 import uniqid from 'uniqid'
 import movieModel from './movieModel';
 import asyncHandler from 'express-async-handler';
-import { getUpcomingMovies } from '../tmdb-api';
+import { getUpcomingMovies, getDiscoverMovies, getMovie, getMovieImages} from '../tmdb-api';
 
 
 const router = express.Router(); 
@@ -13,10 +13,31 @@ router.get('/', asyncHandler(async (req, res) => {
     res.status(200).json(movies);
 }));
 
-// Get movie details
-router.get('/:id', asyncHandler(async (req, res) => {
-    const id = parseInt(req.params.id);
-    const movie = await movieModel.findByMovieDBId(id);
+//get upcoming movies from tmdb
+router.get('/upcoming', asyncHandler( async(req, res) => {
+    const upcomingMovies = await getUpcomingMovies();
+    res.status(200).json(upcomingMovies);
+  }));
+
+//getting discover movies from tmdb
+router.get('/discover', asyncHandler( async(req, res) => {
+    const discoverMovies = await getDiscoverMovies();
+    res.status(200).json(discoverMovies);
+  }));
+
+// Get movie details based on id from tmdb
+router.get('/:id', asyncHandler(async (req, res) => {   
+    const movie = await getMovie(req.params.id);
+    if (movie) {
+        res.status(200).json(movie);
+    } else {
+        res.status(404).json({message: 'The resource you requested could not be found.', status_code: 404});
+    }
+}));
+
+// Get movie detail images based on id from tmdb
+router.get('/:id/images', asyncHandler(async (req, res) => {   
+    const movie = await getMovieImages(req.params.id);
     if (movie) {
         res.status(200).json(movie);
     } else {
@@ -56,8 +77,4 @@ router.post('/:id/reviews', (req, res) => {
     }
 });
 
-router.get('/tmdb/upcoming', asyncHandler( async(req, res) => {
-    const upcomingMovies = await getUpcomingMovies();
-    res.status(200).json(upcomingMovies);
-  }));
 export default router;
