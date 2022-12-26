@@ -1,4 +1,4 @@
-import { getGenres } from "../../api/tmdb-api";
+import { getGenres } from "../../api/movie-api";
 import { useQuery } from "react-query";
 import Chip from "@mui/material/Chip";
 

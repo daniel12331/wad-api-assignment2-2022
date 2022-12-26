@@ -29,7 +29,7 @@ app.use(passport.initialize());
 
 
 app.use('/api/movies', passport.authenticate('jwt', {session: false}), moviesRouter);
-app.use('/api/genre', genreRouter);
+app.use('/api/genres',passport.authenticate('jwt', {session: false}), genreRouter);
 app.use('/api/users', usersRouter);
 
 app.use(errHandler);

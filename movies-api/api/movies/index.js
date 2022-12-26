@@ -8,11 +8,6 @@ import { getUpcomingMovies, getDiscoverMovies, getMovie, getMovieImages} from '.
 
 const router = express.Router(); 
 
-router.get('/', asyncHandler(async (req, res) => {
-    const movies = await movieModel.find();
-    res.status(200).json(movies);
-}));
-
 //get upcoming movies from tmdb
 router.get('/upcoming', asyncHandler( async(req, res) => {
     const upcomingMovies = await getUpcomingMovies();

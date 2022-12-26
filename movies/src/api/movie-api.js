@@ -77,3 +77,17 @@ export const getDiscoverMovies = () => {
          console.log(error);
      });
    };    
+
+   export const getGenres = async (type) => {
+    return fetch(
+        `/api/genres/${type}`, {
+             headers: {
+                 'Authorization': window.localStorage.getItem('token')
+             }
+         }
+     ).then(res => { 
+         return res.json();
+     }).catch((error) => {
+         console.log(error);
+     });
+   };    
