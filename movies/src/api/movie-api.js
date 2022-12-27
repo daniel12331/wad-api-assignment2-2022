@@ -18,6 +18,11 @@ export const signup = (username, password) => {
     }).then(res => res.json())
 };
 
+
+  //////////////////////////////////          Movies      /////////////////////////////////////////////////////////////
+
+
+
 export const getDiscoverMovies = () => {
     return fetch(
        '/api/movies/discover', {
@@ -62,21 +67,10 @@ export const getDiscoverMovies = () => {
     });
   };    
 
-  export const getMovieImages = ({ queryKey }) => {
-    const [, idPart] = queryKey;
-    const { id } = idPart;
-    return fetch(
-        `/api/movies/${id}/images`, {
-             headers: {
-                 'Authorization': window.localStorage.getItem('token')
-             }
-         }
-     ).then(res => { 
-         return res.json();
-     }).catch((error) => {
-         console.log(error);
-     });
-   };    
+
+ 
+//////////////////////////////////          Genres      /////////////////////////////////////////////////////////////
+
 
    export const getGenres = async (type) => {
     return fetch(
@@ -91,3 +85,141 @@ export const getDiscoverMovies = () => {
          console.log(error);
      });
    };    
+
+
+//////////////////////////////////          Actors      /////////////////////////////////////////////////////////////
+
+
+   export const getActors = async (pageNumber) => {
+    return fetch(
+        `/api/actor/page/${pageNumber}`, {
+             headers: {
+                 'Authorization': window.localStorage.getItem('token')
+             }
+         }
+     ).then(res => { 
+         return res.json();
+     }).catch((error) => {
+         console.log(error);
+     });
+   };   
+
+   export const getActor = (args) => {
+    const [, idPart] = args.queryKey;
+    const { id } = idPart;
+    return fetch(
+       `/api/actor/${id}`, {
+            headers: {
+                'Authorization': window.localStorage.getItem('token')
+            }
+        }
+    ).then(res => {
+        return res.json();
+    }).catch((error) => {
+        console.log(error);
+    });
+  }; 
+  
+
+  export const getActorCredits = (args) => {
+    const [, idPart] = args.queryKey;
+    const { id } = idPart;
+    return fetch(
+       `/api/actor/credits/${id}`, {
+            headers: {
+                'Authorization': window.localStorage.getItem('token')
+            }
+        }
+    ).then(res => {
+        return res.json();
+    }).catch((error) => {
+        console.log(error);
+    });
+  }; 
+
+
+
+  //////////////////////////////////          TvShows      /////////////////////////////////////////////////////////////
+
+
+  export const getTVShows = async (pageNumber) => {
+    return fetch(
+        `/api/actor/page/${pageNumber}`, {
+             headers: {
+                 'Authorization': window.localStorage.getItem('token')
+             }
+         }
+     ).then(res => { 
+         return res.json();
+     }).catch((error) => {
+         console.log(error);
+     });
+   };  
+
+   export const getTVShow = (args) => {
+    const [, idPart] = args.queryKey;
+    const { id } = idPart;
+    return fetch(
+       `/api/actor/${id}`, {
+            headers: {
+                'Authorization': window.localStorage.getItem('token')
+            }
+        }
+    ).then(res => {
+        return res.json();
+    }).catch((error) => {
+        console.log(error);
+    });
+  }; 
+
+  export const getTvShowSimilar = (args) => {
+    const [, idPart] = args.queryKey;
+    const { id } = idPart;
+    return fetch(
+       `/api/actor/${id}`, {
+            headers: {
+                'Authorization': window.localStorage.getItem('token')
+            }
+        }
+    ).then(res => {
+        return res.json();
+    }).catch((error) => {
+        console.log(error);
+    });
+  }; 
+
+
+    //////////////////////////////////          Search      /////////////////////////////////////////////////////////////
+
+
+
+  export const getSearch = (args) => {
+    const [, idPart] = args.queryKey;
+    const { id } = idPart;
+    return fetch(
+       `/api/actor/${id}`, {
+            headers: {
+                'Authorization': window.localStorage.getItem('token')
+            }
+        }
+    ).then(res => {
+        return res.json();
+    }).catch((error) => {
+        console.log(error);
+    });
+  }; 
+  export const getMovieReviews = (args) => {
+    const [, idPart] = args.queryKey;
+    const { id } = idPart;
+    return fetch(
+       `/api/actor/${id}`, {
+            headers: {
+                'Authorization': window.localStorage.getItem('token')
+            }
+        }
+    ).then(res => {
+        return res.json();
+    }).catch((error) => {
+        console.log(error);
+    });
+  }; 

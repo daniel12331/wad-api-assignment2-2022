@@ -2,7 +2,7 @@ import React, { useState} from "react";
 import TextField from "@mui/material/TextField";
 import { Button, Tab, Tabs } from "@mui/material";
 import {Grid} from "@mui/material";
-import { getSearch } from "../api/tmdb-api";
+import { getSearch } from "../api/movie-api";
 import { useQuery } from "react-query";
 import {Pagination} from "@mui/material";
 import PageTemplate from '../components/templateMovieListPage';

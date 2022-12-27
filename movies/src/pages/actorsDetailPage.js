@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from 'react-router-dom';
 import MovieDetails from "../components/movieDetails/";
 import PageTemplate from "../components/templateMoviePage";
-import { getActor, getActorCredits } from '../api/tmdb-api'
+import { getActor, getActorCredits } from '../api/movie-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner'
 import MovieList from "../components/movieList";
@@ -17,13 +17,13 @@ const ActorsPage = (props) => {
   );
   
  
-  const { data: creditData , error: CreError, isLoading: CreIsLoading, isError: CreIsError } = useQuery(
+  const { data: creditData, error: CreError, isLoading: CreIsLoading, isError: CreIsError } = useQuery(
   ["credits", { id: id }],
   getActorCredits);
-
-  const isLoading = CreIsLoading || aisLoading 
-  const isError = aisError || CreIsError 
-  const error = [CreError, aError, ]
+  
+  const isLoading = CreIsLoading || aisLoading ;
+  const isError = aisError || CreIsError ;
+  const error = [CreError, aError, ];
 
 
   if (isLoading) {

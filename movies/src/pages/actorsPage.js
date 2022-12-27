@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import PageTemplate from '../components/templateMovieListPage'
-import { getActors } from "../api/tmdb-api";
+import { getActors } from "../api/movie-api";
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import { Pagination } from "@mui/material";
@@ -8,7 +8,7 @@ import { Pagination } from "@mui/material";
 
 const ActorsPage = (props) => {
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const { data, error, isLoading, isError }  = useQuery(['actors', currentPage], ()=> getActors(currentPage))
 
   if (isLoading) {
