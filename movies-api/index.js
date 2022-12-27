@@ -3,6 +3,8 @@ import express from 'express';
 import moviesRouter from './api/movies';
 import genreRouter from './api/genres';
 import actorRouter from './api/actors';
+import tvshowRouter from './api/tvshows';
+
 import './db';
 import './seedData'
 import usersRouter from './api/users';
@@ -32,6 +34,8 @@ app.use(passport.initialize());
 app.use('/api/movies', passport.authenticate('jwt', {session: false}), moviesRouter);
 app.use('/api/genres',passport.authenticate('jwt', {session: false}), genreRouter);
 app.use('/api/actor',passport.authenticate('jwt', {session: false}), actorRouter);
+app.use('/api/tvshow',passport.authenticate('jwt', {session: false}), tvshowRouter);
+
 
 app.use('/api/users', usersRouter);
 

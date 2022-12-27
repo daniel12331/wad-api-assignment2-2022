@@ -144,7 +144,7 @@ export const getDiscoverMovies = () => {
 
   export const getTVShows = async (pageNumber) => {
     return fetch(
-        `/api/actor/page/${pageNumber}`, {
+        `/api/tvshow/page/${pageNumber}`, {
              headers: {
                  'Authorization': window.localStorage.getItem('token')
              }
@@ -160,7 +160,7 @@ export const getDiscoverMovies = () => {
     const [, idPart] = args.queryKey;
     const { id } = idPart;
     return fetch(
-       `/api/actor/${id}`, {
+       `/api/tvshow/${id}`, {
             headers: {
                 'Authorization': window.localStorage.getItem('token')
             }
@@ -176,7 +176,7 @@ export const getDiscoverMovies = () => {
     const [, idPart] = args.queryKey;
     const { id } = idPart;
     return fetch(
-       `/api/actor/${id}`, {
+       `/api/tvshow/similar/${id}`, {
             headers: {
                 'Authorization': window.localStorage.getItem('token')
             }

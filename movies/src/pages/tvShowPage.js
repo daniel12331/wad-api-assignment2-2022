@@ -23,7 +23,7 @@ const TvShowsPage = (props) => {
   const genreforURL = useGenre(selectedGenres);
 
   const {  data, error, isLoading, isError, refetch }  
-  = useQuery(['tvshow', currentPage, genreforURL], ()=> getTVShows(currentPage, genreforURL))
+  = useQuery(['tvshow', currentPage], ()=> getTVShows(currentPage))
 
   if (isLoading) {
     return <Spinner />
