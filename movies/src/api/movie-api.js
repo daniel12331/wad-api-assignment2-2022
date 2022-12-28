@@ -193,11 +193,11 @@ export const getDiscoverMovies = () => {
 
 
 
-  export const getSearch = (args) => {
-    const [, idPart] = args.queryKey;
-    const { id } = idPart;
+  export const getSearch = (searchText, page, type ) => {
+
+
     return fetch(
-       `/api/actor/${id}`, {
+       `/api/search/${searchText}/${page}/${type}`, {
             headers: {
                 'Authorization': window.localStorage.getItem('token')
             }

@@ -159,3 +159,18 @@ export const getGenres = async (type) => {
       throw error
    });
   };
+
+
+  export const getSearch = (searchText, page, type) => {
+    return fetch(
+      `https://api.themoviedb.org/3/search/${type === 1? "tv":type=== 2 ? "person" : "movie"}?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&query=${searchText}&page=${page}&include_adult=false`
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.json().message);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+       throw error
+    });
+  };

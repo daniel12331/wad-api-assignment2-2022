@@ -4,6 +4,8 @@ import moviesRouter from './api/movies';
 import genreRouter from './api/genres';
 import actorRouter from './api/actors';
 import tvshowRouter from './api/tvshows';
+import searchRouter from './api/search';
+
 
 import './db';
 import './seedData'
@@ -35,6 +37,7 @@ app.use('/api/movies', passport.authenticate('jwt', {session: false}), moviesRou
 app.use('/api/genres',passport.authenticate('jwt', {session: false}), genreRouter);
 app.use('/api/actor',passport.authenticate('jwt', {session: false}), actorRouter);
 app.use('/api/tvshow',passport.authenticate('jwt', {session: false}), tvshowRouter);
+app.use('/api/search',passport.authenticate('jwt', {session: false}), searchRouter);
 
 
 app.use('/api/users', usersRouter);
