@@ -208,18 +208,31 @@ export const getDiscoverMovies = () => {
         console.log(error);
     });
   }; 
-  export const getMovieReviews = (args) => {
-    const [, idPart] = args.queryKey;
-    const { id } = idPart;
+
+    //////////////////////////////////          Movies Reviews     /////////////////////////////////////////////////////////////
+
+  export const getMovieReviews = (id) => {
+ 
     return fetch(
-       `/api/actor/${id}`, {
-            headers: {
-                'Authorization': window.localStorage.getItem('token')
-            }
-        }
-    ).then(res => {
-        return res.json();
-    }).catch((error) => {
-        console.log(error);
-    });
-  }; 
+       `/api/addreview/${id}/reviews`, {
+        headers: {
+            'Authorization': window.localStorage.getItem('token'),
+            'Content-Type': 'application/json'
+        },
+        method: 'get'}).then(res => res.json())
+  };
+
+  export const addMovieReview = (name, movie, review) => {
+
+    return fetch(`/api/addreview/${name}/reviews/${movie.id}?action=addreview`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'post',
+        body: JSON.stringify({ movieid : movie.id, author : review.author, review : review.review, rating: review.rating  })
+    }).then(res => res.json())
+};
+
+    //////////////////////////////////          Movies Favourites     /////////////////////////////////////////////////////////////
+
+

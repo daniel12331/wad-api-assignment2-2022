@@ -9,16 +9,20 @@ import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
 import { getMovieReviews } from "../../api/movie-api";
 import { excerpt } from "../../util";
+import { useQuery } from "react-query";
+import Spinner from '../spinner'
 
 export default function MovieReviews({ movie }) {
+  const id = movie.id;
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    getMovieReviews(movie.id).then((reviews) => {
+    getMovieReviews(id).then((reviews) => {
       setReviews(reviews);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
 
   return (
@@ -32,7 +36,7 @@ export default function MovieReviews({ movie }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {reviews.map((r) => (
+          {reviews?.map((r) => (
             <TableRow key={r.id}>
               <TableCell component="th" scope="row">
                 {r.author}

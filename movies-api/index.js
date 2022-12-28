@@ -5,6 +5,7 @@ import genreRouter from './api/genres';
 import actorRouter from './api/actors';
 import tvshowRouter from './api/tvshows';
 import searchRouter from './api/search';
+import addreviewRouter from './api/reviews';
 
 
 import './db';
@@ -38,6 +39,8 @@ app.use('/api/genres',passport.authenticate('jwt', {session: false}), genreRoute
 app.use('/api/actor',passport.authenticate('jwt', {session: false}), actorRouter);
 app.use('/api/tvshow',passport.authenticate('jwt', {session: false}), tvshowRouter);
 app.use('/api/search',passport.authenticate('jwt', {session: false}), searchRouter);
+app.use('/api/addreview',passport.authenticate('jwt', {session: false}), addreviewRouter);
+
 
 
 app.use('/api/users', usersRouter);
