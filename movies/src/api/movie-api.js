@@ -8,13 +8,13 @@ export const login = (username, password) => {
     }).then(res => res.json())
 };
 
-export const signup = (username, password) => {
+export const signup = (username, password, favorites) => {
     return fetch('/api/users?action=register', {
         headers: {
             'Content-Type': 'application/json'
         },
         method: 'post',
-        body: JSON.stringify({ username: username, password: password })
+        body: JSON.stringify({ username: username, password: password, favourites : favorites})
     }).then(res => res.json())
 };
 

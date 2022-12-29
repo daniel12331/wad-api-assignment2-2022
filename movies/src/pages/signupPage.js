@@ -12,9 +12,10 @@ const SignUpPage = props => {
   const register = () => {
     let passwordRegEx = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/;
     const validPassword = passwordRegEx.test(password);
+    let favourites = {}
 
     if (validPassword && password === passwordAgain) {
-      context.register(userName, password);
+      context.register(userName, password, favourites);
       setRegistered(true);
     }
   }
