@@ -235,4 +235,35 @@ export const getDiscoverMovies = () => {
 
     //////////////////////////////////          Movies Favourites     /////////////////////////////////////////////////////////////
 
+    export const addFavouriteMovieAPI = (username , movie) => {
 
+        return fetch(`/api/users/add/${username}/favourites`, {
+            headers: {
+                'Authorization': window.localStorage.getItem('token'),
+                'Content-Type': 'application/json'
+            },
+            method: 'post',
+            body: JSON.stringify({  movie })
+        }).then(res => res.json())
+    };
+
+    export const getFavouriteMovies = (username) => {
+ 
+        return fetch(
+           `/api/users/${username}/favourites`, {
+            headers: {
+                'Authorization': window.localStorage.getItem('token'),
+                'Content-Type': 'application/json'
+            },
+            method: 'get'}).then(res => res.json())
+      };
+
+      export const removeFavouriteMovie = (username, movie) => {
+        return fetch(`/api/users/${username}/delete/favourites`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'delete',
+            body: JSON.stringify({ movie })
+        }).then(res => res.json())
+    };

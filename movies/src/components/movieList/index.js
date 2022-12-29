@@ -30,7 +30,7 @@ const MovieList = ( {actors, movies, action, title, credits, type}) => {
   ));
  
   
-    return type === 1 || type === 0 || title === 'Discover Movies' || title === 'Upcoming Movies' || title === 'Popular TV Shows'? movieCards: title === 'Credits' ? actoreCredits: title === "Most Popular Actors" || type === 2? actorCards : ''
+    return type === 1 || type === 0 || title === 'Discover Movies'|| title === 'Favorite Movies' || title === 'Upcoming Movies' || title === 'Popular TV Shows'? movieCards: title === 'Credits' ? actoreCredits: title === "Most Popular Actors" || type === 2? actorCards : ''
 
 
  

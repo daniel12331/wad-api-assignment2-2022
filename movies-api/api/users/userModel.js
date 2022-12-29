@@ -9,17 +9,20 @@ function checkPassword(str)
   return regularExpression.test(str);
 }
 
-  const UserSchema = new Schema({
+  const UserSchema = new mongoose.Schema({
     username: { type: String, unique: true, required: true},
     password: {type: String, required: true },
-    favourites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Movies'}],
-    reviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'Movies'}],
+    favourites: {type:Array}
   });
   
   UserSchema.statics.findByUserName = function (username) {
     return this.findOne({ username: username });
   };
-  
+
+  UserSchema.statics.findByFavoriteID = function (id) {
+    return this.findOne({ id: id });
+  };
+
   UserSchema.methods.comparePassword = function (passw, callback) {
     bcrypt.compare(passw, this.password, (err, isMatch) => {
       if (err) {

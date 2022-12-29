@@ -1,8 +1,9 @@
 import express from 'express';
-import User from './userModel';
+import User from '../users/userModel';
 import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 import movieModel from '../movies/movieModel';
+import { getMovie } from '../tmdb-api';
 
 
 
@@ -51,23 +52,41 @@ router.get('/', async (req, res) => {
         res.status(404).json({ code: 404, msg: 'Unable to Update User' });
     }
 });
-router.post('/:userName/favourites', asyncHandler(async (req, res) => {
-    const newFavourite = req.body.id;
-    const userName = req.params.userName;
-    const movie = await movieModel.findByMovieDBId(newFavourite);
-    const user = await User.findByUserName(userName);
-    if(user.favourites.includes(movie._id)){
-        res.status(404).json({ code: 404, msg: 'Duplicate of movie already exists' });
 
-    }
-    await user.favourites.push(movie._id);
-    await user.save(); 
-    res.status(201).json(user); 
-  }));
+
+// Add user favourites to db 
+router.post('/add/:userName/favourites', asyncHandler(async (req, res) => {
+ console.log(req.body.movie)
   
+  const userName = req.params.userName;
+  const user = await User.findByUserName(userName);
+
+  await user.favourites.push(req.body.movie);
+  await user.save(); 
+  return res.status(201).json(user); 
+  
+  
+}));
+
+// get all user favourites from db 
   router.get('/:userName/favourites', asyncHandler( async (req, res) => {
     const userName = req.params.userName;
     const user = await User.findByUserName(userName).populate('favourites');
+    console.log(user.favourites)
     res.status(200).json(user.favourites);
   }));
+  
+// delete favourite from db 
+router.delete('/:userName/delete/favourites', asyncHandler( async (req, res) => {
+  const movieid = req.body.movie.id;
+  const userName = req.params.userName;
+  const user = await User.findByUserName(userName);
+  const index = user.favourites.indexOf(movieid)
+  const ss = await user.favourites.splice(index, 1);
+  console.log(ss)
+
+  await user.save(); 
+  return res.status(201).json(user); 
+}));
+
 export default router;
