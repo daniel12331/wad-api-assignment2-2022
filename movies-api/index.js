@@ -14,6 +14,10 @@ import usersRouter from './api/users';
 import session from 'express-session';
 import passport from './authenticate';
 
+
+import swaggerui from 'swagger-ui-express'
+import swaggerdocument from './swagger.json'
+
 dotenv.config();
 
 const errHandler = (err, req, res, next) => {
@@ -40,6 +44,7 @@ app.use('/api/actor',passport.authenticate('jwt', {session: false}), actorRouter
 app.use('/api/tvshow',passport.authenticate('jwt', {session: false}), tvshowRouter);
 app.use('/api/search',passport.authenticate('jwt', {session: false}), searchRouter);
 app.use('/api/addreview',passport.authenticate('jwt', {session: false}), addreviewRouter);
+app.use('/swagger', swaggerui.serve, swaggerui.setup(swaggerdocument));
 
 app.use('/api/users', usersRouter);
 

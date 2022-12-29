@@ -1,0 +1,592 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Daniel Markos Swagger Documentation",
+        "description": "WAD - Assignment 2 - 2022",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+        } ,
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
+    "security": [{
+        "bearerAuth": []
+    }],
+     "servers": [
+        {
+            "url": "/api/",
+            "description": "With docker-compose and nginx proxy"
+        }
+    ],
+
+    "tags": [
+        {
+            "name": "Movies",
+            "description": "API for movies in the system"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Genres",
+            "description": "API for genres in the system"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Actor",
+            "description": "API for actors in the system"
+        }
+    ],
+    "tags": [
+        {
+            "name": "TVShow",
+            "description": "API for tvshows in the system"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Search",
+            "description": "API for searching in the system"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Reviews",
+            "description": "API for reviews in the system"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Users",
+            "description": "API for users in the system"
+        }
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+
+    "paths": {
+        "/movies/discover": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get all movies in system",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/movies/upcoming": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get upcoming movies",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/movies/{id}": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get movies by id",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Movie with id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },"/movies/reviews/{id}": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get reviews by movie id",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Movie with id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/actor/page/{pageNumber}": {
+            "get": {
+                "tags": [
+                    "Actor"
+                ],
+                "summary": "Get Actors",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "pagenumber",
+                        "required": true,
+                        "description": "pagenumber"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/actor/{id}": {
+            "get": {
+                "tags": [
+                    "Actor"
+                ],
+                "summary": "Get Actors details",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "actor id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/actor/credits/{id}": {
+            "get": {
+                "tags": [
+                    "Actor"
+                ],
+                "summary": "Get Actors credits",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "actor id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }, 
+        "/actor/genres/{type}": {
+            "get": {
+                "tags": [
+                    "Genres"
+                ],
+                "summary": "Get Genres",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "type",
+                        "required": true,
+                        "description": "movies or tvhshows"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/addreview/{id}/reviews": {
+            "get": {
+                "tags": [
+                    "Reviews"
+                ],
+                "summary": "Get Reviews by id",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "review by id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/addreview/{username}/reviews/{movieid}": {
+            "post": {
+                "tags": [
+                    "Reviews"
+                ],
+                "summary": "Add a movie review",
+                "requestBody": {
+                    "description": "Add Review Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Review"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            
+            }
+
+        },
+        "/search/{searchtext}/{page}/{type}": {
+            "get": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Get search by movies/tvshow/actors",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "searchtext",
+                        "required": true,
+                        "description": "search query"
+                    },
+                    {
+                        "in": "path",
+                        "name": "page",
+                        "required": true,
+                        "description": "page number"
+                    },
+                    {
+                        "in": "path",
+                        "name": "type",
+                        "required": true,
+                        "description": "movie/tvshow/actor"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/tvshow/page/{pagenumber}": {
+            "get": {
+                "tags": [
+                    "TVShow"
+                ],
+                "summary": "Get Tvshows by pagenumber",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "pagenumber",
+                        "required": true,
+                        "description": "tvshow by page"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/tvshow/{id}": {
+            "get": {
+                "tags": [
+                    "TVShow"
+                ],
+                "summary": "Get tvhshows by id",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "tvshow by id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/tvshow/similar/{id}": {
+            "get": {
+                "tags": [
+                    "TVShow"
+                ],
+                "summary": "Get Similar tvshows by id",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "tvshow by id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/users/": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get all Users",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/tvshow/{id}": {
+            "get": {
+                "tags": [
+                    "TVShow"
+                ],
+                "summary": "Get Reviews by id",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "tvshow by id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+         "/users/": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Register a user",
+                "requestBody": {
+                    "description": "Add User Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/User"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok"
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            
+            }
+
+        },
+        "/users/{id}": {
+            "put": {
+                "tags": [
+                    "Reviews"
+                ],
+                "summary": "Update a user",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "user by id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Change User Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/User"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            
+            }
+
+        },
+        "/users/{username}/favourites": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Add a favourite movie to user",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "user by id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Add Favourite movie object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Review"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            
+            }
+
+        },
+
+        "/users/{username}/delete/favourites": {
+            "delete": {
+                "summary": "Delete favourite movie with given ID",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Delete Favourite with id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                }
+            }
+
+        }
+    }
+    
+        
+    
+
+    }, 
+
+    "definitions": {
+        "Review": {
+            "type": "object",
+            "properties": {
+                "movieid": {
+                    "type": "number"
+                },
+                "author": {
+                    "type": "string"
+                },
+                "review": {
+                    "type": "string"
+                },
+                "rating": {
+                    "type": "number"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "User": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "number"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+    }
